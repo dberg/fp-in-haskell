@@ -3,4 +3,4 @@ module Main where
 import Lib
 
 main :: IO ()
-main = putStrLn (show (Cons "Hello" Nil))
+main = putStrLn (show (setHead (tail' (build ["Bogus", "Hallo", "World"])) "Hello"))
