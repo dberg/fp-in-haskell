@@ -82,6 +82,8 @@ productDoubles' l = foldLeft l 0.0 (\ d z -> d * z)
 -- Exercise 3.13
 -- Can we write foldLeft in terms of foldRight?
 -- What about the other way around.
+foldLeft' :: List a -> b -> (b -> a -> b) -> b
+foldLeft' l z f = foldRight l (\ b -> b) (\ a g -> (\ b -> g (f b a))) z
 
 -- Exercise 3.14
 -- Implement append in terms of either foldLeft or foldRight
