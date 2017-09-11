@@ -87,8 +87,25 @@ foldLeft' l z f = foldRight l (\ b -> b) (\ a g -> (\ b -> g (f b a))) z
 
 -- Exercise 3.14
 -- Implement append in terms of either foldLeft or foldRight
+append' :: List a -> List a -> List a
+append' x y = foldRight x y (\ a b -> Cons a b)
 
 -- Exercise 3.15
 -- Function that concatenates a list of list into a single list.
 -- Runtime should be linear in the total length of all lists.
 -- Use functions we have already defined.
+
+-- Exercise 3.16
+addOne :: List Int -> List Int
+addOne Nil = Nil
+addOne (Cons h t) = Cons (h + 1) (addOne t)
+
+-- Exercise 3.17
+doubleToString :: List Double -> List String
+doubleToString Nil = Nil
+doubleToString (Cons h t) = Cons (show h) (doubleToString t)
+
+-- Exercise 3.18
+map' :: List a -> (a -> b) -> List b
+map' Nil _ = Nil
+map' (Cons h t) f = Cons (f h) (map' t f)
