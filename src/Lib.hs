@@ -1,5 +1,16 @@
 module Lib
-    ( List(Cons, Nil), build, tail', setHead, drop', tail'', dropWhile', init', foldRight, length', foldLeft
+    ( List(Cons, Nil)
+    , build
+    , tail'
+    , setHead
+    , drop'
+    , tail''
+    , dropWhile'
+    , init'
+    , foldRight
+    , length'
+    , foldLeft
+    , filter'
     ) where
 
 data List a = Nil | Cons a (List a)
@@ -7,6 +18,11 @@ data List a = Nil | Cons a (List a)
 instance (Show a) => Show (List a) where
   show (Nil) = ""
   show (Cons x xs) = show x ++ " " ++ show xs
+
+instance (Eq a) => Eq (List a) where
+  Nil == Nil = True
+  (Cons h1 t1) == (Cons h2 t2) = h1 == h2 && t1 == t2
+  _ == _ = False
 
 -- TODO: Check how Varargs can be implemented. Also, see [] implementation.
 --       https://wiki.haskell.org/Varargs
@@ -109,3 +125,8 @@ doubleToString (Cons h t) = Cons (show h) (doubleToString t)
 map' :: List a -> (a -> b) -> List b
 map' Nil _ = Nil
 map' (Cons h t) f = Cons (f h) (map' t f)
+
+-- Exercise 3.19
+filter' :: List a -> (a -> Bool) -> List a
+filter' l f = foldRight l Nil (\ a b -> if f a then Cons a b else b)
+
