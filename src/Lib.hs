@@ -11,6 +11,8 @@ module Lib
     , length'
     , foldLeft
     , filter'
+    , concat'
+    , flatMap
     ) where
 
 data List a = Nil | Cons a (List a)
@@ -107,9 +109,8 @@ append' :: List a -> List a -> List a
 append' x y = foldRight x y (\ a b -> Cons a b)
 
 -- Exercise 3.15
--- Function that concatenates a list of list into a single list.
--- Runtime should be linear in the total length of all lists.
--- Use functions we have already defined.
+concat' :: List (List a) -> List a
+concat' l = foldRight l Nil (\ a b -> append' a b)
 
 -- Exercise 3.16
 addOne :: List Int -> List Int
@@ -130,3 +131,22 @@ map' (Cons h t) f = Cons (f h) (map' t f)
 filter' :: List a -> (a -> Bool) -> List a
 filter' l f = foldRight l Nil (\ a b -> if f a then Cons a b else b)
 
+-- Exercise 3.20
+flatMap :: List a -> (a -> List b) -> List b
+flatMap l f = concat' (map' l f)
+
+-- Exercise 3.21
+filter'' :: List a -> (a -> Bool) -> List a
+filter'' l f = flatMap l (\ a -> if f a then build [ a ] else Nil)
+
+-- Exercise 3.22
+addTwoLists :: (Num a) => List a -> List a -> List a
+addTwoLists Nil _ = Nil
+addTwoLists _ Nil = Nil
+addTwoLists (Cons h1 t1) (Cons h2 t2) = Cons (h1 + h2) (addTwoLists t1 t2)
+
+-- Exercise 3.23
+zipWith' :: List a -> List b -> (a -> b -> c) -> List c
+zipWith' Nil _ _ = Nil
+zipWith' _ Nil _ = Nil
+zipWith' (Cons h1 t1) (Cons h2 t2) f = Cons (f h1 h2) (zipWith' t1 t2 f)

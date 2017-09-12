@@ -24,4 +24,13 @@ unitTests = testGroup "Unit tests"
 
   , testCase "Filter odd elements" $
       assertEqual "[2]" (filter' (build [1, 2, 3]) (\ a -> a `mod` 2 == 0)) (build [2])
+
+  , testCase "Concat lists" $
+      assertEqual "[1, 2, 3]" (concat' $ build [build [1], build [2], build [3]]) (build [1, 2, 3])
+
+  , testCase "Concat lists with empty elements" $
+      assertEqual "[1, 2]" (concat' $ build [build [1], build [], build [2]]) (build [1, 2])
+
+  , testCase "Flatmap" $
+      assertEqual "[1, 1, 2, 2]" (flatMap (build [1, 2]) (\ i -> build [i, i])) (build [1, 1, 2, 2])
   ]
