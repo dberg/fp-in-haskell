@@ -1,4 +1,4 @@
-module Lib
+module List
     ( List(Cons, Nil)
     , build
     , tail'

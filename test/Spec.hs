@@ -3,16 +3,17 @@ module Main where
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Lib
+import List
+import Tree
 
 main :: IO ()
 main = do
   defaultMain tests
 
 tests :: TestTree
-tests = testGroup "Tests" [unitTests]
+tests = testGroup "Tests" [unitTestLists, unitTestTrees]
 
-unitTests = testGroup "Unit tests"
+unitTestLists = testGroup "List tests"
   [ testCase "Build empty list" $
       assertEqual "Nil" (build [] :: List Int) (Nil :: List Int)
 
@@ -34,3 +35,5 @@ unitTests = testGroup "Unit tests"
   , testCase "Flatmap" $
       assertEqual "[1, 1, 2, 2]" (flatMap (build [1, 2]) (\ i -> build [i, i])) (build [1, 1, 2, 2])
   ]
+
+unitTestTrees = testGroup "Tree tests" []

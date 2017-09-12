@@ -1,6 +1,7 @@
 module Main where
 
-import Lib
+import List
+import Tree
 
 main :: IO ()
 main = putStrLn (show (setHead (tail' (build ["Bogus", "Hallo", "World"])) "Hello"))
