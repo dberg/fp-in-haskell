@@ -36,4 +36,21 @@ unitTestLists = testGroup "List tests"
       assertEqual "[1, 1, 2, 2]" (flatMap (build [1, 2]) (\ i -> build [i, i])) (build [1, 1, 2, 2])
   ]
 
-unitTestTrees = testGroup "Tree tests" []
+unitTestTrees = testGroup "Tree tests"
+  [ testCase "count nodes" $
+      assertEqual "size 3" (size (Branch (Leaf 1) (Leaf 2))) 3
+
+  , testCase "maximum int" $
+      assertEqual "max 10" (maximum' (Branch (Branch (Leaf 10) (Leaf 5)) (Leaf 15))) 15
+
+  , testCase "max depth 0" $
+      assertEqual "max 0" (depth (Leaf 10)) 0
+
+  , testCase "max depth 3" $
+      assertEqual "max 3" (depth (Branch (Branch (Leaf 3) (Leaf 2)) (Leaf 1))) 2
+
+  , testCase "map add 1" $
+      assertEqual "map"
+      (map' (Branch (Leaf 1) (Leaf 2)) (\ a -> a + 1))
+      (Branch (Leaf 2) (Leaf 3))
+  ]

@@ -103,6 +103,8 @@ productDoubles' l = foldLeft l 0.0 (\ d z -> d * z)
 foldLeft' :: List a -> b -> (b -> a -> b) -> b
 foldLeft' l z f = foldRight l (\ b -> b) (\ a g -> (\ b -> g (f b a))) z
 
+-- TODO: foldRight'
+
 -- Exercise 3.14
 -- Implement append in terms of either foldLeft or foldRight
 append' :: List a -> List a -> List a
@@ -150,3 +152,6 @@ zipWith' :: List a -> List b -> (a -> b -> c) -> List c
 zipWith' Nil _ _ = Nil
 zipWith' _ Nil _ = Nil
 zipWith' (Cons h1 t1) (Cons h2 t2) f = Cons (f h1 h2) (zipWith' t1 t2 f)
+
+-- Exercise 3.24
+-- TODO:
