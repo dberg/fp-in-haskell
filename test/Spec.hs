@@ -51,6 +51,6 @@ unitTestTrees = testGroup "Tree tests"
 
   , testCase "map add 1" $
       assertEqual "map"
-      (map' (Branch (Leaf 1) (Leaf 2)) (\ a -> a + 1))
+      (mapT (Branch (Leaf 1) (Leaf 2)) (\ a -> a + 1))
       (Branch (Leaf 2) (Leaf 3))
   ]

@@ -13,6 +13,7 @@ module List
     , filter'
     , concat'
     , flatMap
+    , mapL
     ) where
 
 data List a = Nil | Cons a (List a)
@@ -125,9 +126,9 @@ doubleToString Nil = Nil
 doubleToString (Cons h t) = Cons (show h) (doubleToString t)
 
 -- Exercise 3.18
-map' :: List a -> (a -> b) -> List b
-map' Nil _ = Nil
-map' (Cons h t) f = Cons (f h) (map' t f)
+mapL :: List a -> (a -> b) -> List b
+mapL Nil _ = Nil
+mapL (Cons h t) f = Cons (f h) (mapL t f)
 
 -- Exercise 3.19
 filter' :: List a -> (a -> Bool) -> List a
@@ -135,7 +136,7 @@ filter' l f = foldRight l Nil (\ a b -> if f a then Cons a b else b)
 
 -- Exercise 3.20
 flatMap :: List a -> (a -> List b) -> List b
-flatMap l f = concat' (map' l f)
+flatMap l f = concat' (mapL l f)
 
 -- Exercise 3.21
 filter'' :: List a -> (a -> Bool) -> List a

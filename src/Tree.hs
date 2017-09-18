@@ -3,7 +3,7 @@ module Tree
   , size
   , maximum'
   , depth
-  , map'
+  , mapT
   , fold
   ) where
 
@@ -35,13 +35,13 @@ depth (Leaf _) = 0
 depth (Branch t1 t2) = 1 + (max (depth t1) (depth t2))
 
 -- Exercise 3.28
-map' :: Tree a -> (a -> b) -> Tree b
-map' (Leaf a) f = Leaf $ f a
-map' (Branch t1 t2) f = Branch (map' t1 f) (map' t2 f)
+mapT :: Tree a -> (a -> b) -> Tree b
+mapT (Leaf a) f = Leaf $ f a
+mapT (Branch t1 t2) f = Branch (mapT t1 f) (mapT t2 f)
 
 -- Exercise 3.29
 fold :: Tree a -> (a -> b) -> (b -> b -> b) -> b
 fold (Leaf a) f _ = f a
 fold (Branch t1 t2) f g = g (fold t2 f g) (fold t1 f g)
 
--- TODO: size, maximum', depth and map' via fold
+-- TODO: size, maximum', depth and mapT via fold
